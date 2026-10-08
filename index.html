@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI-Agent 下载情况</title>
+    <style>
+      :root {
+        --bg: #f5f7fb;
+        --card: #ffffff;
+        --primary: #2563eb;
+        --primary-soft: #eaf1ff;
+        --text: #1f2937;
+        --muted: #6b7280;
+        --line: #e5e7eb;
+        --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+        background: linear-gradient(180deg, #eef5ff 0%, var(--bg) 100%);
+        color: var(--text);
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      header {
+        background: rgba(255,255,255,0.8);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 0;
+      }
+
+      .brand {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .nav a {
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 600;
+        margin-left: 18px;
+      }
+
+      .hero {
+        padding: 54px 0 24px;
+      }
+
+      .hero-card {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 24px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+        padding: 28px;
+      }
+
+      .tag {
+        display: inline-block;
+        background: var(--primary-soft);
+        color: var(--primary);
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+
+      h1 {
+        margin: 16px 0 14px;
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 1.15;
+      }
+
+      .subtitle {
+        color: var(--muted);
+        font-size: 1.03rem;
+        line-height: 1.8;
+        margin-bottom: 22px;
+      }
+
+      .buttons {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        text-decoration: none;
+        display: inline-block;
+        padding: 12px 18px;
+        border-radius: 12px;
+        font-weight: 700;
+        transition: transform 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+
+      .btn-secondary {
+        background: #f1f5f9;
+        color: var(--text);
+        border: 1px solid var(--line);
+      }
+
+      .mini-panel {
+        background: linear-gradient(180deg, #f8fbff 0%, #eef4ff 100%);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 18px;
+      }
+
+      .mini-card {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 12px;
+      }
+
+      .mini-card:last-child {
+        margin-bottom: 0;
+      }
+
+      .label {
+        color: var(--muted);
+        font-size: 0.8rem;
+        margin-bottom: 8px;
+      }
+
+      .value {
+        font-size: 1.5rem;
+        font-weight: 800;
+      }
+
+      section {
+        padding: 18px 0 14px;
+      }
+
+      h2 {
+        margin: 0 0 16px;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .stat {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 22px 18px;
+        box-shadow: var(--shadow);
+      }
+
+      .stat .num {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 8px;
+      }
+
+      .stat .name {
+        color: var(--muted);
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .panel {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+        padding: 22px 20px;
+      }
+
+      .panel ul {
+        margin: 0;
+        padding-left: 20px;
+        line-height: 1.9;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 10px;
+      }
+
+      .photo {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      .photo img {
+        display: block;
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        background: #eff6ff;
+      }
+
+      .photo p {
+        margin: 0;
+        padding: 14px 16px;
+        font-weight: 700;
+        border-top: 1px solid var(--line);
+      }
+
+      footer {
+        text-align: center;
+        color: var(--muted);
+        padding: 32px 0 48px;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 800px) {
+        .hero-card,
+        .info-grid,
+        .stats,
+        .gallery {
+          grid-template-columns: 1fr;
+        }
+
+        .nav {
+          flex-direction: column;
+          gap: 8px;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">AI-Agent 下载情况</div>
+        <nav>
+          <a href="#overview">概览</a>
+          <a href="#summary">总结</a>
+          <a href="#screenshots">截图</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero" id="overview">
+        <div class="hero-card">
+          <div>
+            <span class="tag">作业展示 / 个人记录</span>
+            <h1>AI-Agent 下载与使用情况</h1>
+            <p class="subtitle">
+              这是一个关于 AI-Agent 下载、安装和基础使用情况的记录页面。内容包括下载过程说明、使用体验以及个人截图展示，适合用于课程作业和个人成果展示。
+            </p>
+            <div class="buttons">
+              <a class="btn btn-primary" href="#screenshots">查看截图</a>
+              <a class="btn btn-secondary" href="#summary">查看总结</a>
+            </div>
+          </div>
+
+          <div class="mini-panel">
+            <div class="mini-card">
+              <div class="label">状态</div>
+              <div class="value">已完成</div>
+            </div>
+            <div class="mini-card">
+              <div class="label">平台</div>
+              <div class="value">AI Agent</div>
+            </div>
+            <div class="mini-card">
+              <div class="label">用途</div>
+              <div class="value">作业展示</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="summary">
+        <h2>简要总结</h2>
+        <div class="stats">
+          <div class="stat">
+            <div class="num">1</div>
+            <div class="name">下载任务</div>
+          </div>
+          <div class="stat">
+            <div class="num">4</div>
+            <div class="name">截图记录</div>
+          </div>
+          <div class="stat">
+            <div class="num">100%</div>
+            <div class="name">展示完成</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="info-grid">
+          <div class="panel">
+            <h2>下载说明</h2>
+            <ul>
+              <li>本页面用于记录 AI-Agent 的下载及使用情况。</li>
+              <li>页面内容适合展示作业过程和个人学习成果。</li>
+              <li>整体结构清晰，适合直接展示给他人查看。</li>
+              <li>也便于后期补充更多内容和截图信息。</li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <h2>使用感受</h2>
+            <ul>
+              <li>下载和使用流程较为简单，适合初学者上手。</li>
+              <li>AI Agent 能提升工作效率和学习体验。</li>
+              <li>该工具具有较好的辅助功能，适合日常应用。</li>
+              <li>结合截图展示能够让说明更加直观和完整。</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="screenshots">
+        <h2>个人下载截图</h2>
+        <div class="gallery">
+          <div class="photo">
+            <img src="./images/screenshot1.svg" alt="截图 1" />
+            <p>截图 1：下载页面</p>
+          </div>
+          <div class="photo">
+            <img src="./images/screenshot2.svg" alt="截图 2" />
+            <p>截图 2：安装界面</p>
+          </div>
+          <div class="photo">
+            <img src="./images/screenshot3.svg" alt="截图 3" />
+            <p>截图 3：使用界面</p>
+          </div>
+          <div class="photo">
+            <img src="./images/screenshot4.svg" alt="截图 4" />
+            <p>截图 4：结果展示</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      个人作业展示 · AI-Agent 下载情况
+    </footer>
+  </body>
+</html>

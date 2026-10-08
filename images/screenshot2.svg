@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780">
+  <rect width="1200" height="780" fill="#eef5ff"/>
+  <rect x="70" y="60" width="1060" height="660" rx="26" fill="#ffffff" stroke="#dfe7f6"/>
+  <rect x="120" y="110" width="250" height="46" rx="23" fill="#eaf1ff"/>
+  <text x="152" y="140" font-size="20" fill="#2563eb" font-family="Segoe UI, Arial, sans-serif" font-weight="700">安装界面</text>
+  <rect x="120" y="200" width="960" height="380" rx="18" fill="#f8fbff" stroke="#dfe7f6"/>
+  <rect x="160" y="236" width="360" height="44" rx="12" fill="#e5edff"/>
+  <rect x="160" y="310" width="290" height="18" rx="9" fill="#dfe7f6"/>
+  <rect x="160" y="346" width="340" height="18" rx="9" fill="#dfe7f6"/>
+  <rect x="160" y="382" width="260" height="18" rx="9" fill="#dfe7f6"/>
+  <rect x="630" y="240" width="340" height="220" rx="18" fill="#dfeeff"/>
+  <circle cx="785" cy="330" r="62" fill="#cfe1ff"/>
+  <rect x="715" y="420" width="150" height="18" rx="9" fill="#c1d5f7"/>
+  <rect x="120" y="610" width="960" height="64" rx="12" fill="#f1f5f9"/>
+  <text x="150" y="652" font-size="22" fill="#4b5563" font-family="Segoe UI, Arial, sans-serif">安装状态：成功 / 版本：AI Agent / 运行正常</text>
+</svg>
